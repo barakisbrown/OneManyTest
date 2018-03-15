@@ -17,14 +17,9 @@ namespace OneMany
                 conn.Open();
                 // InitializeDB(conn);
                 // InsertComics(conn);
-<<<<<<< Updated upstream
                 // InsertComicsPart2(conn);
                 InsertComicsPart3(conn);
                 // QueryPublishers(conn);
-=======
-                QueryPublishers(conn);
->>>>>>> Stashed changes
-
             }
         }
 
@@ -32,35 +27,23 @@ namespace OneMany
         {
             using (var db = new MyDbContext(conn, false))
             {
-<<<<<<< Updated upstream
                 var C1 = new ComicInfo { Name = "Eternal Warrior", IssueNumber = 2, CoverPrice = 3.99 };
                 var C2 = new ComicInfo { Name = "Eternal Warrior", IssueNumber = 1, CoverPrice = 3.99 };
-=======
-
-                var C1 = new ComicInfo { Name = "Eternal Warrior", IssueNumber = 1, CoverPrice = 3.99 };
-                var C2 = new ComicInfo { Name = "Eternal Warrior", IssueNumber = 2, CoverPrice = 3.99 };
->>>>>>> Stashed changes
-
+                                
                 var W = db.Writer.FirstOrDefault(w => w.Name == "Greg Pak");
 
 
                 var P = db.Publisher.FirstOrDefault(p => p.Name == "Valiant Entertainment");
-<<<<<<< Updated upstream
-
                 C1.Publisher = P;
                 C2.Publisher = P;
                 C1.Writer = W;
-=======
                 C1.Publisher = P;
                 C1.Writer = W;
                 C2.Publisher = P;
->>>>>>> Stashed changes
                 C2.Writer = W;
 
                 db.Comics.Add(C1);
                 db.Comics.Add(C2);
-
-<<<<<<< Updated upstream
                 db.SaveChanges();
 
 
@@ -84,8 +67,6 @@ namespace OneMany
                 P.Writers = new List<Writer>();
                 P.Writers.Add(W);
                 db.Publisher.Add(P);
-=======
->>>>>>> Stashed changes
                 db.SaveChanges();
             }
         }
