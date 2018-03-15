@@ -17,9 +17,13 @@ namespace OneMany
                 conn.Open();
                 // InitializeDB(conn);
                 // InsertComics(conn);
+<<<<<<< Updated upstream
                 // InsertComicsPart2(conn);
                 InsertComicsPart3(conn);
                 // QueryPublishers(conn);
+=======
+                QueryPublishers(conn);
+>>>>>>> Stashed changes
 
             }
         }
@@ -28,22 +32,35 @@ namespace OneMany
         {
             using (var db = new MyDbContext(conn, false))
             {
+<<<<<<< Updated upstream
                 var C1 = new ComicInfo { Name = "Eternal Warrior", IssueNumber = 2, CoverPrice = 3.99 };
                 var C2 = new ComicInfo { Name = "Eternal Warrior", IssueNumber = 1, CoverPrice = 3.99 };
+=======
+
+                var C1 = new ComicInfo { Name = "Eternal Warrior", IssueNumber = 1, CoverPrice = 3.99 };
+                var C2 = new ComicInfo { Name = "Eternal Warrior", IssueNumber = 2, CoverPrice = 3.99 };
+>>>>>>> Stashed changes
 
                 var W = db.Writer.FirstOrDefault(w => w.Name == "Greg Pak");
 
 
                 var P = db.Publisher.FirstOrDefault(p => p.Name == "Valiant Entertainment");
+<<<<<<< Updated upstream
 
                 C1.Publisher = P;
                 C2.Publisher = P;
                 C1.Writer = W;
+=======
+                C1.Publisher = P;
+                C1.Writer = W;
+                C2.Publisher = P;
+>>>>>>> Stashed changes
                 C2.Writer = W;
 
                 db.Comics.Add(C1);
                 db.Comics.Add(C2);
 
+<<<<<<< Updated upstream
                 db.SaveChanges();
 
 
@@ -67,6 +84,8 @@ namespace OneMany
                 P.Writers = new List<Writer>();
                 P.Writers.Add(W);
                 db.Publisher.Add(P);
+=======
+>>>>>>> Stashed changes
                 db.SaveChanges();
             }
         }
@@ -98,15 +117,16 @@ namespace OneMany
                 var query =
                     from t1 in db.Comics
                     join t2 in db.Publisher on t1.PublisherId equals t2.PublisherId
-                    select new { t1.Name, t1.IssueNumber, t1.CoverPrice };
+                    join t3 in db.Writer on t1.WriterId equals t3.WriterId
+                    select new { t1.Name, t1.WriterId, t1.IssueNumber, t1.CoverPrice };
 
                 Console.WriteLine("Number of records returned = {0}", query.Count());
                 foreach (var Q in query.ToList())
                 {
-                    Console.WriteLine("Name => {0}/tIssueNumber => {1}/tCoverPrice => {2}", Q.Name, Q.IssueNumber, Q.CoverPrice);
+                    Console.WriteLine("Name => {0}   Writer = {3}  IssueNumber => {1}     CoverPrice => {2}", Q.Name, Q.IssueNumber, Q.CoverPrice, Q.WriterId);
                 }
 
-;
+                Console.ReadKey();
             }
         }
 
