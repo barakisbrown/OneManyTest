@@ -7,7 +7,7 @@ namespace OneMany.Model
     [DbConfigurationType(typeof(MySqlEFConfiguration))]
     public class MyDbContext : DbContext
     {
-        public MyDbContext() : base("name = MyConnectionString")
+        public MyDbContext() : base("MyConnectionString")
         {
             
         }

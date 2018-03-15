@@ -16,7 +16,9 @@ namespace OneMany
             {
                 conn.Open();
                 // InitializeDB(conn);
-                InsertComics(conn);
+                // InsertComics(conn);
+                // InsertComicsPart2(conn);
+                InsertComicsPart3(conn);
                 // QueryPublishers(conn);
 
             }
@@ -26,26 +28,66 @@ namespace OneMany
         {
             using (var db = new MyDbContext(conn, false))
             {
-
                 var C1 = new ComicInfo { Name = "Eternal Warrior", IssueNumber = 2, CoverPrice = 3.99 };
                 var C2 = new ComicInfo { Name = "Eternal Warrior", IssueNumber = 1, CoverPrice = 3.99 };
 
-                var W = new Writer() { Name = "Greg Pak" };
+                var W = db.Writer.FirstOrDefault(w => w.Name == "Greg Pak");
 
 
                 var P = db.Publisher.FirstOrDefault(p => p.Name == "Valiant Entertainment");
-                P.Comics = new List<ComicInfo>();
-                P.Writers = new List<Writer>();
-                P.Comics.Add(C1);
-                P.Comics.Add(C2);
-                P.Writers.Add(W);
-                W.Comics = new List<ComicInfo>();
-                W.Comics.Add(C1);
-                W.Comics.Add(C2);
+
+                C1.Publisher = P;
+                C2.Publisher = P;
+                C1.Writer = W;
+                C2.Writer = W;
+
+                db.Comics.Add(C1);
+                db.Comics.Add(C2);
 
                 db.SaveChanges();
 
 
+            }
+        }
+
+        public static void InsertComicsPart2(MySqlConnection connection)
+        {
+            using (var db = new MyDbContext(connection, false))
+            {
+                var P = new Publisher {Name = "Marvel", Imprint = false};
+                var W = new Writer {Name = "Brian Bendis"};
+                var C = new ComicInfo {Name = "All-New X-men", IssueNumber = 22, CoverPrice = 4.25};
+                var C1 = new ComicInfo { Name = "All-New X-men", IssueNumber = 23, CoverPrice = 3.99 };
+                var C2 = new ComicInfo { Name = "All-New X-men", IssueNumber = 24, CoverPrice = 3.99 };
+
+                P.Comics = new List<ComicInfo>();
+                P.Comics.Add(C);
+                P.Comics.Add(C1);
+                P.Comics.Add(C2);
+                P.Writers = new List<Writer>();
+                P.Writers.Add(W);
+                db.Publisher.Add(P);
+                db.SaveChanges();
+            }
+        }
+
+        public static void InsertComicsPart3(MySqlConnection connection)
+        {
+            using (var db = new MyDbContext(connection, false))
+            {
+                var P = db.Publisher.FirstOrDefault(p => p.Name == "Valiant Entertainment");
+                var W = new Writer {Name = "James Asmus"};
+                var C = new ComicInfo {Name = "Quantum and Woody", IssueNumber = 8, CoverPrice = 3.99};
+                var C1 = new ComicInfo { Name = "Quantum and Woody", IssueNumber = 9, CoverPrice = 3.99 };
+                var C2 = new ComicInfo { Name = "Quantum and Woody", IssueNumber = 10, CoverPrice = 3.99 };
+
+                P.Writers.Add(W);
+                // P.Comics.Add(C);
+                // P.Comics.Add(C1);
+                // P.Comics.Add(C2);
+
+                db.Publisher.Add(P);
+                db.SaveChanges();
             }
         }
 
