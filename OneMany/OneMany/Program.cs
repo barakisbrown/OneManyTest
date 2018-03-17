@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace OneMany
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
@@ -15,10 +15,9 @@ namespace OneMany
             using (var conn = new MySqlConnection(connString))
             {
                 conn.Open();
-                // InitializeDB(conn);
                 // InsertComics(conn);
                 // InsertComicsPart2(conn);
-                InsertComicsPart3(conn);
+                // InsertComicsPart3(conn);
                 // QueryPublishers(conn);
             }
         }
@@ -109,43 +108,6 @@ namespace OneMany
 
                 Console.ReadKey();
             }
-        }
-
-        public static void InitializeDB(MySqlConnection conn)
-        {
-            using (var db = new MyDbContext(conn, false))
-            {
-                var P = new Publisher
-                {
-                    Name = "Valiant Entertainment",
-                    Imprint = false
-                };
-
-                var C = new ComicInfo
-                {
-                    Name = "Eternal Warrior",
-                    IssueNumber = 5,
-                    CoverPrice = 3.99
-                };
-
-                var w = new Writer
-                {
-                    Name = "Greg Pak"
-                };
-
-                // PUBLISHERS
-                P.Comics = new Collection<ComicInfo>();
-                P.Writers = new Collection<Writer>();
-                // WRITERS
-                w.Comics = new Collection<ComicInfo>();
-                w.Comics.Add(C);
-                // Add to the database
-                P.Comics.Add(C);
-                P.Writers.Add(w);
-
-                db.Publisher.Add(P);
-                db.SaveChanges();
-            }
-        }
+        }      
     }
 }
