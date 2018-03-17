@@ -14,8 +14,8 @@ namespace OneMany.Model
 
         public MyDbContext(DbConnection existingConnection, bool contextOwnsConnection) : base(existingConnection, contextOwnsConnection)
         {
-            // Database.SetInitializer<MyDbContext>(new DropCreateDatabaseAlways<MyDbContext>());
-            Database.SetInitializer<MyDbContext>(new CreateDatabaseIfNotExists<MyDbContext>());
+            Database.SetInitializer(new ComicDBInitializer());
+            // Database.SetInitializer<MyDbContext>(new CreateDatabaseIfNotExists<MyDbContext>());
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
