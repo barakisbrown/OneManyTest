@@ -79,6 +79,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\ComicDBInitializer.cs" />
     <Compile Include="Model\ComicInfo.cs" />
     <Compile Include="Model\MyDbContext.cs" />
     <Compile Include="Model\Publisher.cs" />
