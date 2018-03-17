@@ -15,7 +15,7 @@ namespace OneMany
             using (var conn = new MySqlConnection(connString))
             {
                 conn.Open();
-                // InsertComics(conn);
+                InsertComics(conn);
                 // InsertComicsPart2(conn);
                 // InsertComicsPart3(conn);
                 // QueryPublishers(conn);
@@ -27,25 +27,24 @@ namespace OneMany
             using (var db = new MyDbContext(conn, false))
             {
                 var C1 = new ComicInfo { Name = "Eternal Warrior", IssueNumber = 2, CoverPrice = 3.99 };
-                var C2 = new ComicInfo { Name = "Eternal Warrior", IssueNumber = 1, CoverPrice = 3.99 };
+                var C2 = new ComicInfo { Name = "Eternal Warrior", IssueNumber = 3, CoverPrice = 3.99 };
                                 
                 var W = db.Writer.FirstOrDefault(w => w.Name == "Greg Pak");
 
 
                 var P = db.Publisher.FirstOrDefault(p => p.Name == "Valiant Entertainment");
+
+                // COMIC 1
                 C1.Publisher = P;
-                C2.Publisher = P;
                 C1.Writer = W;
-                C1.Publisher = P;
-                C1.Writer = W;
+                // COMIC 2
                 C2.Publisher = P;
                 C2.Writer = W;
-
+                // ADD BOTH COMICS TO THE DATABASE
                 db.Comics.Add(C1);
                 db.Comics.Add(C2);
+                // SAVE THE COMICS TO THE DATABASE
                 db.SaveChanges();
-
-
             }
         }
 

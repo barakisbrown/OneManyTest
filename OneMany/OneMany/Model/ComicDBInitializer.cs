@@ -22,7 +22,7 @@ namespace OneMany.Model
 
             var W = new Writer
             {
-                Name = "Greg Pag"
+                Name = "Greg Pak"
             };
 
             // PUBLISHER TABLE
